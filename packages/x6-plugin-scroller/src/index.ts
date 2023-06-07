@@ -79,12 +79,26 @@ export class Scroller
     this.scrollerImpl.zoom(factor, options)
     return this
   }
+  zoomX(factor?: number, options?: TransformManager.ZoomOptions) {
+    if (typeof factor === 'undefined') {
+      return this.scrollerImpl.zoomX()
+    }
+    this.scrollerImpl.zoomX(factor, options)
+    return this
+  }
 
   zoomTo(
     factor: number,
     options: Omit<TransformManager.ZoomOptions, 'absolute'> = {},
   ) {
     this.scrollerImpl.zoom(factor, { ...options, absolute: true })
+    return this
+  }
+  zoomXTo(
+    factor: number,
+    options: Omit<TransformManager.ZoomOptions, 'absolute'> = {},
+  ) {
+    this.scrollerImpl.zoomX(factor, { ...options, absolute: true })
     return this
   }
 

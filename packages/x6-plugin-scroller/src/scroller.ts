@@ -746,6 +746,60 @@ export class ScrollerImpl extends View<ScrollerImpl.EventArgs> {
     return this
   }
 
+  zoomX(factor?: number, options?: TransformManager.ZoomOptions) {
+    if (factor == null) {
+      return this.sx
+    }
+
+    options = options || {} // eslint-disable-line
+
+    let cx
+    let cy
+    const clientSize = this.getClientSize()
+    const center = this.clientToLocalPoint(
+      clientSize.width / 2,
+      clientSize.height / 2,
+    )
+
+    let sx = factor
+    const sy = 1
+
+    if (!options.absolute) {
+      sx += this.sx
+    }
+
+    if (options.scaleGrid) {
+      sx = Math.round(sx / options.scaleGrid) * options.scaleGrid
+    }
+
+    if (options.maxScale) {
+      sx = Math.min(options.maxScale, sx)
+    }
+
+    if (options.minScale) {
+      sx = Math.max(options.minScale, sx)
+    }
+
+    sx = this.graph.transform.clampScale(sx)
+
+    if (options.center) {
+      const fx = sx / this.sx
+      const fy = sy / this.sy
+      cx = options.center.x - (options.center.x - center.x) / fx
+      cy = options.center.y - (options.center.y - center.y) / fy
+    } else {
+      cx = center.x
+      cy = center.y
+    }
+
+    this.beforeManipulation()
+    this.graph.transform.scale(sx, sy)
+    this.centerPoint(cx, cy)
+    this.afterManipulation()
+
+    return this
+  }
+
   zoomToRect(
     rect: Rectangle.RectangleLike,
     options: TransformManager.ScaleContentToFitOptions = {},
