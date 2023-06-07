@@ -174,6 +174,54 @@ export class TransformManager extends Base {
     return this
   }
 
+  zoomX(factor: number, options?: TransformManager.ZoomOptions) {
+    options = options || {} // eslint-disable-line
+
+    let sx = factor
+    let sy = 1
+    const scale = this.getScale()
+    const clientSize = this.getComputedSize()
+    let cx = clientSize.width / 2
+    let cy = clientSize.height / 2
+
+    if (!options.absolute) {
+      sx += scale.sx
+    }
+
+    if (options.scaleGrid) {
+      sx = Math.round(sx / options.scaleGrid) * options.scaleGrid
+    }
+
+    if (options.maxScale) {
+      sx = Math.min(options.maxScale, sx)
+    }
+
+    if (options.minScale) {
+      sx = Math.max(options.minScale, sx)
+    }
+
+    if (options.center) {
+      cx = options.center.x
+      cy = options.center.y
+    }
+
+    sx = this.clampScale(sx)
+    sy = this.clampScale(sy)
+
+    if (cx || cy) {
+      const ts = this.getTranslation()
+      const tx = cx - (cx - ts.tx) * (sx / scale.sx)
+      const ty = cy - (cy - ts.ty) * (sy / scale.sy)
+      if (tx !== ts.tx || ty !== ts.ty) {
+        this.translate(tx, ty)
+      }
+    }
+
+    this.scale(sx, sy)
+
+    return this
+  }
+
   getRotation() {
     return Dom.matrixToRotation(this.getMatrix())
   }

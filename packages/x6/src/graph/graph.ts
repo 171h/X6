@@ -594,6 +594,23 @@ export class Graph extends Basecoat<EventArgs> {
     return this
   }
 
+  zoomX(factor?: number, options?: Transform.ZoomOptions) {
+    const scroller = this.getPlugin<any>('scroller')
+    if (scroller) {
+      if (typeof factor === 'undefined') {
+        return scroller.zoomX()
+      }
+      scroller.zoomX(factor, options)
+    } else {
+      if (typeof factor === 'undefined') {
+        return this.transform.getZoom()
+      }
+      this.transform.zoomX(factor, options)
+    }
+
+    return this
+  }
+
   zoomTo(
     factor: number,
     options: Omit<Transform.ZoomOptions, 'absolute'> = {},
@@ -603,6 +620,20 @@ export class Graph extends Basecoat<EventArgs> {
       scroller.zoom(factor, { ...options, absolute: true })
     } else {
       this.transform.zoom(factor, { ...options, absolute: true })
+    }
+
+    return this
+  }
+
+  zoomXTo(
+    factor: number,
+    options: Omit<Transform.ZoomOptions, 'absolute'> = {},
+  ) {
+    const scroller = this.getPlugin<any>('scroller')
+    if (scroller) {
+      scroller.zoomX(factor, { ...options, absolute: true })
+    } else {
+      this.transform.zoomX(factor, { ...options, absolute: true })
     }
 
     return this
