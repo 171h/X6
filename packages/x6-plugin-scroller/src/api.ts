@@ -13,7 +13,7 @@ declare module '@antv/x6/lib/graph/graph' {
 
 declare module '@antv/x6/lib/graph/events' {
   interface EventArgs {
-    'graph:scroll': { scrollLeft: number; scrollTop: number }
+    'graph:scroll': { container: HTMLDivElement }
   }
 }
 
