@@ -1,6 +1,6 @@
 {
   "name": "@171h/x6-plugin-scroller",
-  "version": "2.2.0",
+  "version": "2.6.0",
   "description": "scroller plugin for X6",
   "main": "lib/index.js",
   "module": "es/index.js",
