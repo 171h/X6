@@ -2,6 +2,8 @@
   "name": "x6",
   "private": true,
   "scripts": {
+    "dev": "pnpm --filter=demo dev",
+    "demo": "pnpm --filter=demo",
     "preinstall": "npx only-allow pnpm",
     "lint:ts": "eslint '**/src/**/*.{js,ts}?(x)' --cache --fix",
     "lint:style": "stylelint '**/src/**/*.less' --customSyntax postcss-less --cache --fix",
