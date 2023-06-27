@@ -27,12 +27,12 @@ const edge = graph.addEdge({
   source,
   target,
   router: {
-    name: "oneSide",
+    name: 'oneSide',
     args: {
-      side: "right",
+      side: 'right',
     },
   },
-});
+})
 ```
 
 当路由没有参数时，也可以简化为：
@@ -41,14 +41,14 @@ const edge = graph.addEdge({
 const edge = graph.addEdge({
   source,
   target,
-  router: "oneSide",
-});
+  router: 'oneSide',
+})
 ```
 
 也可以调用 [`edge.setRouter`]() 方法来设置路由：
 
 ```ts
-edge.setRouter("oneSide", { side: "right" });
+edge.setRouter('oneSide', { side: 'right' })
 ```
 
 在创建画布时，可以通过 `connecting` 选项来设置全局默认路由（画布的默认路由是 `'normal'`）:
@@ -57,13 +57,13 @@ edge.setRouter("oneSide", { side: "right" });
 new Graph({
   connecting: {
     router: {
-      name: "oneSide",
+      name: 'oneSide',
       args: {
-        side: "right",
+        side: 'right',
       },
     },
   },
-});
+})
 ```
 
 当路由没有参数时，也可以简化为：
@@ -71,9 +71,9 @@ new Graph({
 ```ts
 new Graph({
   connecting: {
-    router: "orth",
+    router: 'orth',
   },
-});
+})
 ```
 
 下面我们一起来看看如何使用内置路由，以及如何自定并注册自定义路由。
@@ -100,13 +100,13 @@ new Graph({
 export type SideOptions =
   | number
   | {
-      vertical?: number;
-      horizontal?: number;
-      left?: number;
-      top?: number;
-      right?: number;
-      bottom?: number;
-    };
+      vertical?: number
+      horizontal?: number
+      left?: number
+      top?: number
+      right?: number
+      bottom?: number
+    }
 ```
 
 例如：
@@ -120,14 +120,14 @@ graph.addEdge({
     { x: 300, y: 120 },
   ],
   router: {
-    name: "orth",
+    name: 'orth',
     args: {
       padding: {
         left: 50,
       },
     },
   },
-});
+})
 ```
 
 <code id="api-orth-router" src="@/src/api/router/orth/index.tsx"></code>
@@ -150,10 +150,10 @@ graph.addEdge({
   source,
   target,
   router: {
-    name: "oneSide",
-    args: { side: "right" },
+    name: 'oneSide',
+    args: { side: 'right' },
   },
-});
+})
 ```
 
 <code id="api-oneside-router" src="@/src/api/router/oneside/index.tsx"></code>
@@ -181,16 +181,16 @@ graph.addEdge({
   source,
   target,
   router: {
-    name: "manhattan",
+    name: 'manhattan',
     args: {
-      startDirections: ["top"],
-      endDirections: ["bottom"],
+      startDirections: ['top'],
+      endDirections: ['bottom'],
     },
   },
-});
+})
 ```
 
-:::warning{title=注意：}
+:::warning{title=注意}
 manhattan 路由的特性是自动避开路径中的障碍物，如果出现无法避开的情况，就会自动降级到 orth 路由，此时为了让开发者能够发现问题，我们在控制台增加了 warn：Unable to execute manhattan algorithm, use orth instead。
 :::
 
@@ -207,13 +207,13 @@ graph.addEdge({
   source,
   target,
   router: {
-    name: "metro",
+    name: 'metro',
     args: {
-      startDirections: ["top"],
-      endDirections: ["bottom"],
+      startDirections: ['top'],
+      endDirections: ['bottom'],
     },
   },
-});
+})
 ```
 
 <code id="api-metro-router" src="@/src/api/router/metro/index.tsx"></code>
@@ -237,12 +237,12 @@ graph.addEdge({
   source,
   target,
   router: {
-    name: "er",
+    name: 'er',
     args: {
       offset: 24,
     },
   },
-});
+})
 ```
 
 <code id="api-er-router" src="@/src/api/router/er/index.tsx"></code>
@@ -254,34 +254,34 @@ graph.addEdge({
 ```ts
 // 路由参数
 interface RandomRouterArgs {
-  bounces?: number;
+  bounces?: number
 }
 
 function randomRouter(
   vertices: Point.PointLike[],
   args: RandomRouterArgs,
-  view: EdgeView
+  view: EdgeView,
 ) {
-  const bounces = args.bounces || 20;
-  const points = vertices.map((p) => Point.create(p));
+  const bounces = args.bounces || 20
+  const points = vertices.map((p) => Point.create(p))
 
   for (var i = 0; i < bounces; i++) {
-    const sourceCorner = view.sourceBBox.getCenter();
-    const targetCorner = view.targetBBox.getCenter();
+    const sourceCorner = view.sourceBBox.getCenter()
+    const targetCorner = view.targetBBox.getCenter()
     const randomPoint = Point.random(
       sourceCorner.x,
       targetCorner.x,
       sourceCorner.y,
-      targetCorner.y
-    );
-    points.push(randomPoint);
+      targetCorner.y,
+    )
+    points.push(randomPoint)
   }
 
-  return points;
+  return points
 }
 
-Graph.registerRouter("random", randomRouter);
-edge.setRouter("random", { bounces: 3 });
+Graph.registerRouter('random', randomRouter)
+edge.setRouter('random', { bounces: 3 })
 ```
 
 <code id="api-random-routrandom" src="@/src/api/router/random/index.tsx"></code>

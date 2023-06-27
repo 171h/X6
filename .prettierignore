@@ -1,9 +1,9 @@
-*.md
 *.sh
 *.yml
 *.svg
 *.gif
 *.log
+*.md
 .DS_Store
 CNAME
 AUTHORS
@@ -11,6 +11,8 @@ LICENSE
 es/
 lib/
 dist/
+public/
+.dumi/
 coverage/
 sites/public
 csstype.ts

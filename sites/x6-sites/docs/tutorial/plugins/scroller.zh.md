@@ -7,10 +7,11 @@ redirect_from:
   - /zh/docs/tutorial/plugins
 ---
 
-:::info{title=在本章节中，主要介绍滚动画布插件相关的知识，通过阅读，你可以了解到：}
+:::info{title=在本章节中主要介绍滚动画布插件相关的知识,通过阅读你可以了解到}
 
 - 如何使画布具备滚动能力
-  :::
+
+:::
 
 ## 使用
 
@@ -27,18 +28,18 @@ $ yarn add @antv/x6-plugin-scroller
 然后我们在代码中这样使用：
 
 ```ts
-import { Scroller } from "@antv/x6-plugin-scroller";
+import { Scroller } from '@antv/x6-plugin-scroller'
 
 const graph = new Graph({
   background: {
-    color: "#F2F7FA",
+    color: '#F2F7FA',
   },
-});
+})
 graph.use(
   new Scroller({
     enabled: true,
-  })
-);
+  }),
+)
 ```
 
 ## 演示
@@ -66,19 +67,19 @@ graph.use(
 上面的 `Padding` 类型定义如下：
 
 ```ts
-type Padding = { top: number; right: number; bottom: number; left: number };
+type Padding = { top: number; right: number; bottom: number; left: number }
 ```
 
 `ModifierKey` 的类型定义如下：
 
 ```ts
-type ModifierKey = string | ("alt" | "ctrl" | "meta" | "shift")[] | null;
+type ModifierKey = string | ('alt' | 'ctrl' | 'meta' | 'shift')[] | null
 ```
 
 支持以下几种形式：
 
 - `alt` 表示按下 `alt`。
-- `[alt, ctrl]`,  表示按下 `alt` 或 `ctrl`。
+- `[alt, ctrl]`, 表示按下 `alt` 或 `ctrl`。
 - `alt|ctrl` 表示按下 `alt` 或 `ctrl`。
 - `alt&ctrl` 表示同时按下 `alt` 和 `ctrl`。
 - `alt|ctrl&shift` 表示同时按下 `alt` 和 `shift` 或者同时按下 `ctrl` 和 `shift`。
@@ -107,8 +108,8 @@ type ModifierKey = string | ("alt" | "ctrl" | "meta" | "shift")[] | null;
 例如：
 
 ```ts
-graph.setScrollbarPosition(100);
-graph.setScrollbarPosition(100, null);
-graph.setScrollbarPosition(null, 200);
-graph.setScrollbarPosition(100, 200);
+graph.setScrollbarPosition(100)
+graph.setScrollbarPosition(100, null)
+graph.setScrollbarPosition(null, 200)
+graph.setScrollbarPosition(100, 200)
 ```

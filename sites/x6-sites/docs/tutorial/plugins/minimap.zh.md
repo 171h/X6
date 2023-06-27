@@ -7,10 +7,11 @@ redirect_from:
   - /zh/docs/tutorial/plugins
 ---
 
-:::info{title=在本章节中，主要介绍小地图插件相关的知识，通过阅读，你可以了解到：}
+:::info{title=在本章节中主要介绍小地图插件相关的知识,通过阅读你可以了解到}
 
 - 如何使用小地图功能
-  :::
+
+:::
 
 ## 使用
 
@@ -27,18 +28,18 @@ $ yarn add @antv/x6-plugin-minimap
 然后我们在代码中这样使用：
 
 ```ts
-import { MiniMap } from "@antv/x6-plugin-minimap";
+import { MiniMap } from '@antv/x6-plugin-minimap'
 
 const graph = new Graph({
   background: {
-    color: "#F2F7FA",
+    color: '#F2F7FA',
   },
-});
+})
 graph.use(
   new MiniMap({
-    container: document.getElementById("minimap"),
-  })
-);
+    container: document.getElementById('minimap'),
+  }),
+)
 ```
 
 ## 演示
@@ -51,7 +52,7 @@ graph.use(
 ## 选项
 
 | 属性名       | 类型          | 默认值 | 必选 | 描述                      |
-| ------------ | ------------- | ------ | ---- | ------------------------- |
+|--------------|---------------|--------|------|-------------------------|
 | container    | HTMLElement   | -      | √    | 挂载小地图的容器          |
 | width        | number        | `300`  |      | 小地图的宽度              |
 | height       | number        | `200`  |      | 小地图的高度              |

@@ -7,10 +7,11 @@ redirect_from:
   - /zh/docs/tutorial/plugins
 ---
 
-:::info{title=在本章节中，主要介绍撤销重做相关的知识，通过阅读，你可以了解到：}
+:::info{title=在本章节中主要介绍撤销重做相关的知识,通过阅读你可以了解到}
 
 - 如何实现元素操作的撤销与重做
-  :::
+
+:::
 
 ## 使用
 
@@ -27,18 +28,18 @@ $ yarn add @antv/x6-plugin-history
 然后我们在代码中这样使用：
 
 ```ts
-import { History } from "@antv/x6-plugin-history";
+import { History } from '@antv/x6-plugin-history'
 
 const graph = new Graph({
   background: {
-    color: "#F2F7FA",
+    color: '#F2F7FA',
   },
-});
+})
 graph.use(
   new History({
     enabled: true,
-  })
-);
+  }),
+)
 ```
 
 ## 演示
@@ -61,24 +62,24 @@ graph.use(
 | afterAddCommand  | `(event, args, cmd) => any`     | -       |      | 当一个命令被添加到 Undo 队列后被调用                                                               |
 | executeCommand   | `(cmd, revert, options) => any` | -       |      | 当命令被撤销或重做时被调用，`revert` 为 `true` 表示命令被撤销，否则表示命令被重做                    |
 
-:::info{title=提示：}
+:::info{title=提示}
 在实际项目中，我们经常会需要将多个改变一次性撤销或者重做，X6 中提供 `batch` 的概念，可以将多个改变合并成一个历史记录。使用方式如下：
 :::
 
 ```ts
 // 方式一
-graph.startBatch("custom-batch-name");
+graph.startBatch('custom-batch-name')
 // 节点改变边框颜色以及修改位置会合并成一条记录，可以一次性撤销
-node.attr("body/stroke", "red");
-node.position(30, 30);
-graph.stopBatch("custom-batch-name");
+node.attr('body/stroke', 'red')
+node.position(30, 30)
+graph.stopBatch('custom-batch-name')
 
 // 方式二
 graph.batchUpdate(() => {
-  node.prop("zIndex", 10);
-  node.attr("label/text", "hello");
-  node.attr("label/fill", "#ff0000");
-});
+  node.prop('zIndex', 10)
+  node.attr('label/text', 'hello')
+  node.attr('label/fill', '#ff0000')
+})
 ```
 
 ## API
@@ -132,35 +133,36 @@ cleanHistory(options?: KeyValue): this
 清空历史队列。`options` 将被传递到事件回调中。
 
 ### graph.getHistoryStackSize(...)
+
 ```ts
 getHistoryStackSize(): number
 ```
 
-获取history栈的尺寸。
-
+获取 history 栈的尺寸。
 
 ### graph.getUndoRemainSize(...)
+
 ```ts
 getUndoRemainSize(): number
 ```
 
-获取history undo栈的剩余尺寸。
+获取 history undo 栈的剩余尺寸。
 
 ### graph.getUndoStackSize(...)
+
 ```ts
 getUndoStackSize(): number
 ```
 
-获取history undo栈的尺寸。
+获取 history undo 栈的尺寸。
 
 ### graph.getRedoStackSize(...)
+
 ```ts
 getRedoStackSize(): number
 ```
 
-获取history redo栈的尺寸。
-
-
+获取 history redo 栈的尺寸。
 
 ### graph.isHistoryEnabled()
 
@@ -211,12 +213,12 @@ toggleHistory(enabled?: boolean): this
 | `history:batch`  | `{ cmds: Command, options: KeyValue }`           | 当接收到 batch 命令时触发 |
 
 ```ts
-graph.on("history:undo", ({ cmds }) => {
-  console.log(cmds);
-});
+graph.on('history:undo', ({ cmds }) => {
+  console.log(cmds)
+})
 
 // 我们也可以在插件实例上监听事件
-history.on("undo", ({ cmds }) => {
-  console.log(cmds);
-});
+history.on('undo', ({ cmds }) => {
+  console.log(cmds)
+})
 ```

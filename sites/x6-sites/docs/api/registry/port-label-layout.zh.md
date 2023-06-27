@@ -1,6 +1,6 @@
 ---
-title: PortLabelLayout
-order: 14
+title: 连接桩标签布局
+order: 12
 redirect_from:
   - /zh/docs
   - /zh/docs/api
@@ -11,15 +11,15 @@ redirect_from:
 
 ```ts
 type Definition<T> = (
-  portPosition: Point,  // 连接桩的位置
-  elemBBox: Rectangle,  // 节点的包围盒
-  args: T,              // 标签位置参数
+  portPosition: Point, // 连接桩的位置
+  elemBBox: Rectangle, // 节点的包围盒
+  args: T, // 标签位置参数
 ) => Result
 
 interface Result {
   position: Point.PointLike // 标签相对于位置
-  angle: number             // 标签的旋转角度
-  attrs: Attr.CellAttrs     // 标签的属性
+  angle: number // 标签的旋转角度
+  attrs: Attr.CellAttrs // 标签的属性
 }
 ```
 
@@ -59,11 +59,9 @@ graph.addNode(
 
 下面我们一起来看看如何使用内置的标签布局算法，以及如何自定并注册自定义布局算法。
 
-## presets
+## 内置连接桩标签布局
 
-在 `Registry.PortLabelLayout.presets` 命令空间中提供了以下几个布局算法。
-
-### _Side_
+### Side
 
 标签位于连接桩的某一侧。
 
@@ -76,14 +74,12 @@ graph.addNode(
 
 ```ts
 interface SideArgs {
-  x?: number;
-  y?: number;
-  angle?: number;
-  attrs?: Attr.CellAttrs;
+  x?: number
+  y?: number
+  angle?: number
+  attrs?: Attr.CellAttrs
 }
 ```
-
-<span class="tag-param">参数<span>
 
 | 名称  | 类型           | 必选 | 默认值 | 描述                                      |
 |-------|----------------|:----:|--------|-----------------------------------------|
@@ -92,7 +88,6 @@ interface SideArgs {
 | angle | number         |      | -      | 用指定的旋转角度替换计算结果中的旋转角度。 |
 | attrs | Attr.CellAttrs |      | -      | 标签属性。                                 |
 
-<span class="tag-example">用法</span>
 
 ```ts
 label: {
@@ -110,9 +105,9 @@ label: {
 }
 ```
 
-<!-- <iframe src="/demos/api/registry/port-label-layout/side"></iframe> -->
+<code id="port-label-layout-side" src="@/src/api/port-label-layout/side/index.tsx"></code>
 
-### _Inside/Outside_
+### Inside/Outside
 
 标签位于节点的内部或者外部，支持一下四种布局：
 
@@ -125,15 +120,13 @@ label: {
 
 ```ts
 interface InOutArgs {
-  offset?: number;
-  x?: number;
-  y?: number;
-  angle?: number;
-  attrs?: Attr.CellAttrs;
+  offset?: number
+  x?: number
+  y?: number
+  angle?: number
+  attrs?: Attr.CellAttrs
 }
 ```
-
-<span class="tag-param">参数<span>
 
 | 名称   | 类型           | 必选 | 默认值 | 描述                                      |
 |--------|----------------|:----:|--------|-----------------------------------------|
@@ -143,7 +136,6 @@ interface InOutArgs {
 | angle  | number         |      | -      | 用指定的旋转角度替换计算结果中的旋转角度。 |
 | attrs  | Attr.CellAttrs |      | -      | 标签属性。                                 |
 
-<span class="tag-example">用法</span>
 
 ```ts
 label: {
@@ -153,9 +145,9 @@ label: {
 }
 ```
 
-<!-- <iframe src="/demos/api/registry/port-label-layout/inside-outside"></iframe> -->
+<code id="port-label-layout-inside-outside" src="@/src/api/port-label-layout/inside-outside/index.tsx"></code>
 
-### _Radial_
+### Radial
 
 将标签放在圆形或椭圆形节点的外围。支持一下两种布局：
 
@@ -164,15 +156,13 @@ label: {
 
 ```ts
 interface RadialArgs {
-  offset?: number;
-  x?: number;
-  y?: number;
-  angle?: number;
-  attrs?: Attr.CellAttrs;
+  offset?: number
+  x?: number
+  y?: number
+  angle?: number
+  attrs?: Attr.CellAttrs
 }
 ```
-
-<span class="tag-param">参数<span>
 
 | 名称   | 类型           | 必选 | 默认值 | 描述                                      |
 |--------|----------------|:----:|--------|-----------------------------------------|
@@ -182,8 +172,6 @@ interface RadialArgs {
 | angle  | number         |      | -      | 用指定的旋转角度替换计算结果中的旋转角度。 |
 | attrs  | Attr.CellAttrs |      | -      | 标签属性。                                 |
 
-<span class="tag-example">用法</span>
-
 ```ts
 label: {
   position: {
@@ -192,23 +180,23 @@ label: {
 }
 ```
 
-<!-- <iframe src="/demos/api/registry/port-label-layout/radial"></iframe> -->
+<code id="port-label-layout-radial" src="@/src/api/port-label-layout/radial/index.tsx"></code>
 
-## registry
+## 自定义连接桩标签布局
 
 连接桩标签定位是一个具有如下签名的函数，返回标签相对于连接桩的位置和旋转角度。
 
 ```ts
 type Definition<T> = (
-  portPosition: Point,  // 连接桩的位置
-  elemBBox: Rectangle,  // 节点的包围盒
-  args: T,              // 标签位置参数
+  portPosition: Point, // 连接桩的位置
+  elemBBox: Rectangle, // 节点的包围盒
+  args: T, // 标签位置参数
 ) => Result
 
 interface Result {
   position: Point.PointLike // 标签相对于位置
-  angle: number             // 标签的旋转角度
-  attrs: Attr.CellAttrs     // 标签的属性
+  angle: number // 标签的旋转角度
+  attrs: Attr.CellAttrs // 标签的属性
 }
 ```
 
@@ -230,46 +218,8 @@ function bottomRight(portPosition, elemBBox, args) {
 
 布局算法实现后，需要注册到系统，注册后就可以像内置布局算法那样来使用。
 
-### register
-
 ```ts
-/**
- *
- */
-register(entities: { [name: string]: Definition }, force?: boolean): void
-register(name: string, entity: Definition, force?: boolean): Definition
-```
-
-注册自定义布局算法。
-
-### unregister
-
-```ts
-unregister(name: string): Definition | null
-```
-
-删除注册的自定义布局算法。
-
-实际上，我们将该命名空间的中 `register` 和 `unregister` 两个方法分别挂载为 Graph 的两个静态方法 `Graph.registerPortLabelLayout` 和 `Graph.unregisterPortLabelLayout`，所以我们可以像下面这样来注册刚刚定义的布局算法：
-
-```ts
-Graph.registerPortLabelLayout("bottomRight", bottomRight);
-```
-
-或者：
-
-```ts
-Graph.registerPortLayout('bottomRight', (portPosition, elemBBox, args) => {
-  const dx = args.dx || 10
-  const dy = args.dy || 10
-
-  return {
-    position: {
-     portPosition.x + dx,
-     portPosition.y + dy,
-    }
-  }
-})
+Graph.registerPortLabelLayout('bottomRight', bottomRight)
 ```
 
 注册以后，我们就可以像内置布局算法那样来使用：
@@ -280,20 +230,20 @@ const rect = graph.addNode({
     groups: {
       group1: {
         position: {
-          name: "top",
+          name: 'top',
         },
         label: {
           position: {
-            name: "bottomRight",
+            name: 'bottomRight',
           },
         },
       },
     },
 
     items: [
-      { id: "port1", group: "group1" },
-      { id: "port2", label: { position: "bottomRight" } },
+      { id: 'port1', group: 'group1' },
+      { id: 'port2', label: { position: 'bottomRight' } },
     ],
   },
-});
+})
 ```

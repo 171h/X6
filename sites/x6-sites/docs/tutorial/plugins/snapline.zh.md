@@ -7,10 +7,11 @@ redirect_from:
   - /zh/docs/tutorial/basic
 ---
 
-:::info{title=在本章节中，主要介绍对齐线插件相关的知识，通过阅读，你可以了解到：}
+:::info{title=在本章节中主要介绍对齐线插件相关的知识,通过阅读你可以了解到}
 
 - 如何在画布中使用对齐线
-  :::
+
+:::
 
 ## 使用
 
@@ -27,18 +28,18 @@ $ yarn add @antv/x6-plugin-snapline
 然后我们在代码中这样使用：
 
 ```ts
-import { Snapline } from "@antv/x6-plugin-snapline";
+import { Snapline } from '@antv/x6-plugin-snapline'
 
 const graph = new Graph({
   background: {
-    color: "#F2F7FA",
+    color: '#F2F7FA',
   },
-});
+})
 graph.use(
   new Snapline({
     enabled: true,
-  })
-);
+  }),
+)
 ```
 
 ## 演示

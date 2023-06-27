@@ -7,10 +7,11 @@ redirect_from:
   - /zh/docs/tutorial/plugins
 ---
 
-:::info{title=在本章节中，主要介绍快捷键相关的知识，通过阅读，你可以了解到：}
+:::info{title=在本章节中主要介绍快捷键相关的知识,通过阅读你可以了解到}
 
 - 如何为画布绑定快捷键
-  :::
+
+:::
 
 ## 使用
 
@@ -27,18 +28,18 @@ $ yarn add @antv/x6-plugin-keyboard
 然后我们在代码中这样使用：
 
 ```ts
-import { Keyboard } from "@antv/x6-plugin-keyboard";
+import { Keyboard } from '@antv/x6-plugin-keyboard'
 
 const graph = new Graph({
   background: {
-    color: "#F2F7FA",
+    color: '#F2F7FA',
   },
-});
+})
 graph.use(
   new Keyboard({
     enabled: true,
-  })
-);
+  }),
+)
 ```
 
 ## 演示
@@ -60,12 +61,12 @@ graph.use(
   new Keyboard({
     enabled: true,
     format(key) {
-      return key.replace(/\s/g, "").replace("cmd", "command");
+      return key.replace(/\s/g, '').replace('cmd', 'command')
     },
-  })
-);
+  }),
+)
 // 下面语句被格式化后等同于 graph.bindKey('command', (e) => { })
-graph.bindKey("cmd", (e) => {});
+graph.bindKey('cmd', (e) => {})
 
 graph.use(
   new Keyboard({
@@ -73,12 +74,12 @@ graph.use(
     guard(this: Graph, e: KeyboardEvent) {
       if (e.altKey) {
         // 当按下 alt 键时，忽略所有键盘事件
-        return false;
+        return false
       }
-      return true;
+      return true
     },
-  })
-);
+  }),
+)
 ```
 
 ## API

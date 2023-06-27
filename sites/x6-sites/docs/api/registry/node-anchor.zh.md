@@ -1,5 +1,5 @@
 ---
-title: NodeAnchor
+title: 节点的锚点
 order: 8
 redirect_from:
   - /zh/docs
@@ -7,12 +7,12 @@ redirect_from:
   - /zh/docs/api/registry
 ---
 
-当连接到节点时，可以通过 NodeAnchor 来指定被连接的节点的锚点，锚点与连接点 [ConnectionPoint](/zh/docs/api/registry/connection-point) 共同确定了边的起点和终点。
+当连接到节点时，可以通过 `NodeAnchor` 来指定被连接的节点的锚点，锚点与连接点 [ConnectionPoint](/zh/docs/api/registry/connection-point) 共同确定了边的起点和终点。
 
-- 起点：从第一个路径点或目标节点的中心（没有路径点时）画一条参考线到源节点的锚点，然后根据 [connectionPoint](/zh/docs/api/model/edge#source-和-target) 指定的交点计算方法，计算参考线与图形的交点，该交点就是边的起点。
-- 终点：从最后一个路径点或源节点的中心（没有路径点时）画一条参考线到目标节点的锚点，然后根据 [connectionPoint](/zh/docs/api/model/edge#source-和-target) 指定的交点计算方法，计算参考线与图形的交点，该交点就是边的终点。
+- 起点：从第一个路径点或目标节点的中心（没有路径点时）画一条参考线到源节点的锚点，然后根据 [connectionPoint](/zh/docs/api/registry/connection-point) 指定的交点计算方法，计算参考线与图形的交点，该交点就是边的起点。
+- 终点：从最后一个路径点或源节点的中心（没有路径点时）画一条参考线到目标节点的锚点，然后根据 [connectionPoint](/zh/docs/api/registry/connection-point) 指定的交点计算方法，计算参考线与图形的交点，该交点就是边的终点。
 
-我们在 `Registry.NodeAnchor.presets` 命名空间中提供了以下几种锚点定义。
+X6 内置了以下几种锚点定义。
 
 - [center](#center) 边链接的元素的中心点（默认值）。
 - [top](#top) 边链接的元素的顶部中心点。
@@ -27,40 +27,40 @@ redirect_from:
 - [orth](#orth) 正交点。
 - [nodeCenter](#nodecenter) 节点的中心点。
 
-<!-- <iframe src="/demos/api/registry/node-anchor/playground"></iframe> -->
+<code id="node-anchor-playground" src="@/src/api/node-anchor/playground/index.tsx"></code>
 
 可以在创建边时指定锚点：
 
 ```ts
 const edge = graph.addEdge({
   source: {
-    cell: "source-id",
+    cell: 'source-id',
     anchor: {
-      name: "midSide",
+      name: 'midSide',
       args: {
         dx: 10,
       },
     },
   },
   target: {
-    cell: "target-id",
-    anchor: "orth", // 没有参数时可以简化写法
+    cell: 'target-id',
+    anchor: 'orth', // 没有参数时可以简化写法
   },
-});
+})
 ```
 
 创建之后可以调用 `edge.setSource` 和 `edge.setTarget` 方法来修改锚点：
 
 ```ts
 edge.setSource({
-  cell: "source-id",
+  cell: 'source-id',
   anchor: {
-    name: "midSide",
+    name: 'midSide',
     args: {
       dx: 10,
     },
   },
-});
+})
 ```
 
 在创建画布时，可以通过 `connecting` 选项来设置全局默认的锚点：
@@ -69,13 +69,13 @@ edge.setSource({
 new Graph({
   connecting: {
     anchor: {
-      name: "midSide",
+      name: 'midSide',
       args: {
         dx: 10,
       },
     },
   },
-});
+})
 ```
 
 没有参数时可以简化为：
@@ -83,12 +83,12 @@ new Graph({
 ```ts
 new Graph({
   connecting: {
-    anchor: "midSide",
+    anchor: 'midSide',
   },
-});
+})
 ```
 
-## presets
+## 内置锚点
 
 ### center
 
@@ -207,7 +207,7 @@ new Graph({
 | dx     | number   |    否    | `0`    | X 轴偏移量。 |
 | dy     | number   |    否    | `0`    | Y 轴偏移量。 |
 
-## registry
+## 自定义锚点
 
 锚点定义是一个具有如下签名的函数，返回锚点。
 
@@ -231,21 +231,20 @@ export type Definition<T> = (
 | args     | T                             | 参数。               |
 | type     | Edge.TerminalType             | 边的终端类型。       |
 
-并在 `Registry.NodeAnchor.registry` 对象上提供了 [`register`](#register) 和 [`unregister`](#unregister) 两个方法来注册和取消注册锚点定义，同时也将这两个方法分别挂载为 Graph 上的两个静态方法 `Graph.registerAnchor` 和 `Graph.unregisterAnchor`。
-
-### register
+完成锚点定义后，我们先注册锚点：
 
 ```ts
-register(entities: { [name: string]: Definition }, force?: boolean): void
-register(name: string, entity: Definition, force?: boolean): Definition
+Graph.registerAnchor('custom-anchor', ...)
 ```
 
-注册连锚点定义。
-
-### unregister
+注册以后我们就可以通过锚点名称来使用：
 
 ```ts
-unregister(name: string): Definition | null
+new Graph({
+  connecting: {
+    anchor: {
+      name: 'custom-anchor',
+    },
+  },
+})
 ```
-
-取消注册锚点定义。

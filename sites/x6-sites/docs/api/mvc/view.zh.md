@@ -1,10 +1,10 @@
 ---
-title: View
-order: 5
+title: 视图
+order: 7
 redirect_from:
   - /zh/docs
   - /zh/docs/api
-  - /zh/docs/api/model
+  - /zh/docs/api/mvc
 ---
 
 ## 配置
@@ -12,8 +12,6 @@ redirect_from:
 ### async
 
 是否是异步渲染的画布。异步渲染不会阻塞 UI，对需要添加大量节点和边时的性能提升非常明显。但需要注意的是，一些同步操作可能会出现意外结果，比如获取某个节点的视图、获取节点/边的包围盒等，因为这些同步操作触发时异步渲染可能并没有完成。
-
-<!-- <iframe src="/demos/api/graph/async"></iframe> -->
 
 ### virtual
 
@@ -70,28 +68,25 @@ redirect_from:
 | contentContainer | Element          |  ✓   | 连接桩内容的容器元素。                   |
 | contentSelectors | Markup.Selectors |      | 连接桩内容 Markup 渲染后的选择器键值对。 |
 
-
 例如，我们可以渲染一个 React 类型的连接桩。
 
 ```tsx
 const graph = new Graph({
   container: this.container,
   onPortRendered(args) {
-    const selectors = args.contentSelectors;
-    const container = selectors && selectors.foContent;
+    const selectors = args.contentSelectors
+    const container = selectors && selectors.foContent
     if (container) {
       ReactDOM.render(
         <Tooltip title="port">
           <div className="my-port" />
         </Tooltip>,
-        container
-      );
+        container,
+      )
     }
   },
-});
+})
 ```
-
-<!-- <iframe src="/demos/tutorial/advanced/react/react-port"></iframe> -->
 
 ### onEdgeLabelRendered
 
@@ -109,7 +104,6 @@ const graph = new Graph({
 
 当边的文本标签渲染完成时触发的回调，参数如下：
 
-
 | 名称      | 类型             | 非空 | 描述                                  |
 |-----------|------------------|:----:|-------------------------------------|
 | edge      | Edge             |  ✓   | 边实例。                               |
@@ -117,78 +111,32 @@ const graph = new Graph({
 | container | Element          |  ✓   | 文本标签容器。                         |
 | selectors | Markup.Selectors |  ✓   | 文本标签 Markup 渲染后的选择器键值对。 |
 
-
-例如，我们可以在标签上渲染任何想要的元素。
-
-```tsx
-const graph = new Graph({
-  container: this.container,
-  onEdgeLabelRendered(args) {
-    const { label, container, selectors } = args;
-    const data = label.data;
-
-    if (data) {
-      // 在 Label 容器中渲染一个 foreignObject 来承载 HTML 元素和 React 组件
-      const content = this.appendForeignObject(container);
-
-      if (data === 1) {
-        // 渲染一个 Div 元素
-        const txt = document.createTextNode("text node");
-        content.style.border = "1px solid #f0f0f0";
-        content.style.borderRadius = "4px";
-        content.appendChild(txt);
-      } else if (data === 2) {
-        // 渲染一个 HTML 按钮
-        const btn = document.createElement("button");
-        btn.appendChild(document.createTextNode("HTML Button"));
-        btn.style.height = "30px";
-        btn.style.lineHeight = "1";
-        btn.addEventListener("click", () => {
-          alert("clicked");
-        });
-        content.appendChild(btn);
-      } else if (data === 3) {
-        // 渲染一个 Atnd 的按钮
-        ReactDOM.render(<Button size="small">Antd Button</Button>, content);
-      }
-    }
-  },
-});
-```
-
-<!-- <iframe src="/demos/tutorial/advanced/react/react-label-base"></iframe> -->
-
-我们也可以在定义 Label 的 Markup 时添加 `<foreignObject>` 元素来支持 HTML 和 React 的渲染能力。
+我们可以在定义 Label 的 Markup 时添加 `<foreignObject>` 元素来支持 HTML 和 React 的渲染能力。
 
 ```tsx
 const graph = new Graph({
   container: this.container,
   onEdgeLabelRendered: (args) => {
-    const { selectors } = args;
-    const content = selectors.foContent as HTMLDivElement;
+    const { selectors } = args
+    const content = selectors.foContent as HTMLDivElement
 
     if (content) {
-      content.style.display = "flex";
-      content.style.alignItems = "center";
-      content.style.justifyContent = "center";
-      ReactDOM.render(<Button size="small">Antd Button</Button>, content);
+      content.style.display = 'flex'
+      content.style.alignItems = 'center'
+      content.style.justifyContent = 'center'
+      ReactDOM.render(<Button size="small">Antd Button</Button>, content)
     }
   },
-});
+})
 ```
-
-<!-- <iframe src="/demos/tutorial/advanced/react/react-label-markup"></iframe> -->
 
 ### createCellView
 
 ```ts
-(
-  this: Graph,
-  cell: Cell,
-) => CellView | null | undefined
+(this: Graph, cell: Cell) => CellView | null | undefined
 ```
 
-自定义元素的视图，可以返回一个 `CellView`，会替换默认的视图，如果返回 `null`，则不会渲染，如果返回 `undefined`，会按照默认方式渲染。 
+自定义元素的视图，可以返回一个 `CellView`，会替换默认的视图，如果返回 `null`，则不会渲染，如果返回 `undefined`，会按照默认方式渲染。
 
 ## 方法
 

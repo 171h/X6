@@ -7,10 +7,11 @@ redirect_from:
   - /zh/docs/tutorial/plugins
 ---
 
-:::info{title=在本章节中，主要介绍剪切板相关的知识，通过阅读，你可以了解到：}
+:::info{title=在本章节中主要介绍剪切板相关的知识,通过阅读,你可以了解到}
 
 - 如何使用复制粘贴功能
-  :::
+
+:::
 
 ## 使用
 
@@ -27,18 +28,18 @@ $ yarn add @antv/x6-plugin-clipboard
 然后我们在代码中这样使用：
 
 ```ts
-import { Clipboard } from "@antv/x6-plugin-clipboard";
+import { Clipboard } from '@antv/x6-plugin-clipboard'
 
 const graph = new Graph({
   background: {
-    color: "#F2F7FA",
+    color: '#F2F7FA',
   },
-});
+})
 graph.use(
   new Clipboard({
     enabled: true,
-  })
-);
+  }),
+)
 ```
 
 ## 演示
@@ -163,17 +164,17 @@ toggleClipboard(enabled?: boolean): this
 
 ## 事件
 
-| 事件名称            | 参数类型          | 描述                       |
-|---------------------|-------------------|--------------------------|
-| `clipboard:changed` | { cells: Cell[] } | 复制、剪切、清空剪切板时触发 |
+| 事件名称            | 参数类型            | 描述                       |
+|---------------------|---------------------|--------------------------|
+| `clipboard:changed` | `{ cells: Cell[] }` | 复制、剪切、清空剪切板时触发 |
 
 ```ts
-graph.on("clipboard:changed", ({ cells }) => {
-  console.log(cells);
-});
+graph.on('clipboard:changed', ({ cells }) => {
+  console.log(cells)
+})
 
 // 我们也可以在插件实例上监听事件
-clipboard.on("clipboard:changed", ({ cells }) => {
-  console.log(cells);
-});
+clipboard.on('clipboard:changed', ({ cells }) => {
+  console.log(cells)
+})
 ```

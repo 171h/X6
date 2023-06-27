@@ -7,11 +7,12 @@ redirect_from:
   - /zh/docs/tutorial/plugins
 ---
 
-:::info{title=在本章节中，主要介绍图形变换插件，通过阅读，你可以了解到：}
+:::info{title=在本章节中主要介绍图形变换插件,通过阅读你可以了解到}
 
 - 如何通过交互插件调整节点大小
 - 如果通过交互插件调整节点旋转角度
-  :::
+
+:::
 
 ## 使用
 
@@ -28,19 +29,19 @@ $ yarn add @antv/x6-plugin-transform
 然后我们在代码中这样使用：
 
 ```ts
-import { Transform } from "@antv/x6-plugin-transform";
+import { Transform } from '@antv/x6-plugin-transform'
 
 const graph = new Graph({
   background: {
-    color: "#F2F7FA",
+    color: '#F2F7FA',
   },
-});
+})
 graph.use(
   new Transform({
     resizing: resizingOptions,
     rotating: rotatingOptions,
-  })
-);
+  }),
+)
 ```
 
 ## 演示
@@ -54,17 +55,6 @@ graph.use(
 <code id="plugin-transform-rotating" src="@/src/tutorial/plugins/transform/rotating/index.tsx"></code>
 
 ## 配置
-
-
-## API
-
-### graph.createTransformWidget(node: Node)
-
-给节点创建widget
-
-### graph.clearTransformWidgets()
-
-清除所有widget
 
 ### 调整尺寸
 
@@ -88,11 +78,11 @@ new Transform({
   resizing: {
     enabled: true,
     orthogonal(node: Node) {
-      const { enableOrthogonal } = node.getData();
-      return enableOrthogonal;
+      const { enableOrthogonal } = node.getData()
+      return enableOrthogonal
     },
   },
-});
+})
 ```
 
 ### 调整角度
@@ -109,11 +99,21 @@ new Transform({
   rotating: {
     enabled: true,
     grid() {
-      return 30;
+      return 30
     },
   },
-});
+})
 ```
+
+## API
+
+### graph.createTransformWidget(node: Node)
+
+为节点创建 transform 控件。
+
+### graph.clearTransformWidgets()
+
+清除所有 transform 控件。
 
 ## 事件
 
@@ -127,12 +127,12 @@ new Transform({
 | `node:rotated`  | `{ e: Dom.MouseUpEvent; x: number; y: number; node: Node; view: NodeView }`   | 旋转节点后触发         |
 
 ```ts
-graph.on("node:rotated", ({ node }) => {
-  console.log(node.angle());
-});
+graph.on('node:rotated', ({ node }) => {
+  console.log(node.angle())
+})
 
 // 我们也可以在插件实例上监听事件
-transform.on("node:rotated", ({ node }) => {
-  console.log(node.angle());
-});
+transform.on('node:rotated', ({ node }) => {
+  console.log(node.angle())
+})
 ```

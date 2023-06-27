@@ -7,10 +7,11 @@ redirect_from:
   - /zh/docs/tutorial/plugins
 ---
 
-:::info{title=通过阅读本章节，你可以了解到：}
+:::info{title=通过阅读本章节,你可以了解到}
 
 - 如何将画布内容通过图片格式导出
-  :::
+
+:::
 
 ## 使用
 
@@ -27,15 +28,15 @@ $ yarn add @antv/x6-plugin-export
 然后我们在代码中这样使用：
 
 ```ts
-import { Export } from "@antv/x6-plugin-export";
+import { Export } from '@antv/x6-plugin-export'
 
 const graph = new Graph({
   background: {
-    color: "#F2F7FA",
+    color: '#F2F7FA',
   },
-});
+})
 
-graph.use(new Export());
+graph.use(new Export())
 ```
 
 ## API

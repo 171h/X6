@@ -1,10 +1,10 @@
 ---
-title: Model
-order: 5
+title: 模型
+order: 1
 redirect_from:
   - /zh/docs
   - /zh/docs/api
-  - /zh/docs/api/model
+  - /zh/docs/api/mvc
 ---
 
 ## 配置
@@ -23,8 +23,6 @@ isNode(cell: Cell): cell is Node
 
 返回指定的 Cell 是否是节点。
 
-<span class="tag-param">参数<span>
-
 | 名称 | 类型 | 必选 | 默认值 | 描述         |
 |------|------|:----:|--------|------------|
 | cell | Cell |  ✓   |        | 指定的 Cell。 |
@@ -36,8 +34,6 @@ isEdge(cell: Cell): cell is Edge
 ```
 
 返回指定的 Cell 是否是边。
-
-<span class="tag-param">参数<span>
 
 | 名称 | 类型 | 必选 | 默认值 | 描述         |
 |------|------|:----:|--------|------------|
@@ -51,11 +47,9 @@ createNode(metadata: Node.Metadata): Node
 
 创建节点。
 
-<span class="tag-param">参数<span>
-
-| 名称     | 类型          | 必选 | 默认值 | 描述                                               |
-|----------|---------------|:----:|--------|--------------------------------------------------|
-| metadata | Node.Metadata |  ✓   |        | [节点元数据](/zh/docs/api/model/node#constructor)。 |
+| 名称     | 类型          | 必选 | 默认值 | 描述        |
+|----------|---------------|:----:|--------|-----------|
+| metadata | Node.Metadata |  ✓   |        | 节点元数据。 |
 
 ### addNode(...)
 
@@ -66,14 +60,12 @@ addNode(node: Node, options?: AddOptions): Node
 
 添加节点到画布，返回添加的节点。
 
-<span class="tag-param">参数<span>
-
-| 名称             | 类型                  | 必选 | 默认值  | 描述                                                                                    |
-|------------------|-----------------------|:----:|---------|---------------------------------------------------------------------------------------|
-| node             | Node.Metadata \| Node |  ✓   |         | [节点元数据](/zh/docs/api/model/node#constructor)或[节点实例](/zh/docs/api/model/node)。 |
-| options.silent   | boolean               |      | `false` | 为 `true` 时不触发 `'node:added'` 和 `'cell:added'` 事件和画布重绘。                     |
-| options.sort     | boolean               |      | `true`  | 是否按照 `zIndex` 排序。                                                                 |
-| options...others | object                |      |         | 其他自定义键值对，可以在事件回调中使用。                                                  |
+| 名称             | 类型                  | 必选 | 默认值  | 描述                                                                |
+|------------------|-----------------------|:----:|---------|-------------------------------------------------------------------|
+| node             | Node.Metadata \| Node |  ✓   |         | 节点元数据或节点实例。                                               |
+| options.silent   | boolean               |      | `false` | 为 `true` 时不触发 `'node:added'` 和 `'cell:added'` 事件和画布重绘。 |
+| options.sort     | boolean               |      | `true`  | 是否按照 `zIndex` 排序。                                             |
+| options...others | object                |      |         | 其他自定义键值对，可以在事件回调中使用。                              |
 
 ### addNodes(...)
 
@@ -83,14 +75,12 @@ addNodes(nodes: (Node.Metadata | Node)[], options?: AddOptions): Graph
 
 添加多个节点到画布，返回该画布。批量添加节点的时候，推荐使用这个方法，相比多次 addNode，它具备更好的性能。
 
-<span class="tag-param">参数<span>
-
-| 名称             | 类型                      | 必选 | 默认值  | 描述                                                                                        |
-|------------------|---------------------------|:----:|---------|-------------------------------------------------------------------------------------------|
-| nodes            | (Node.Metadata \| Node)[] |  ✓   |         | [节点元数据](/en/docs/api/model/node#constructor)或[节点实例](/en/docs/api/model/node)数组。 |
-| options.silent   | boolean                   |      | `false` | 为 `true` 时不触发 `'node:added'` 和 `'cell:added'` 事件和画布重绘。                         |
-| options.sort     | boolean                   |      | `true`  | 是否按照 `zIndex` 排序。                                                                     |
-| options...others | object                    |      |         | 其他自定义键值对，可以在事件回调中使用。                                                      |
+| 名称             | 类型                      | 必选 | 默认值  | 描述                                                                |
+|------------------|---------------------------|:----:|---------|-------------------------------------------------------------------|
+| nodes            | (Node.Metadata \| Node)[] |  ✓   |         | 节点元数据或节点实例数组。                                           |
+| options.silent   | boolean                   |      | `false` | 为 `true` 时不触发 `'node:added'` 和 `'cell:added'` 事件和画布重绘。 |
+| options.sort     | boolean                   |      | `true`  | 是否按照 `zIndex` 排序。                                             |
+| options...others | object                    |      |         | 其他自定义键值对，可以在事件回调中使用。                              |
 
 ### removeNode(...)
 
@@ -101,11 +91,9 @@ removeNode(node: Node, options?: RemoveOptions): Node | null
 
 删除节点，返回删除的节点。
 
-<span class="tag-param">参数<span>
-
 | 名称             | 类型           | 必选 | 默认值  | 描述                                                                    |
 |------------------|----------------|:----:|---------|-----------------------------------------------------------------------|
-| node             | string \| Node |  ✓   |         | 节点 ID 或[节点实例](/zh/docs/api/model/node)。                          |
+| node             | string \| Node |  ✓   |         | 节点 ID 或节点实例。                                                     |
 | options.silent   | boolean        |      | `false` | 为 `true` 时不触发 `'node:removed'` 和 `'cell:removed'` 事件和画布重绘。 |
 | options...others | object         |      |         | 其他自定义键值对，可以在事件回调中使用。                                  |
 
@@ -117,11 +105,9 @@ createEdge(metadata: Edge.Metadata): Edge
 
 创建边。
 
-<span class="tag-param">参数<span>
-
-| 名称     | 类型          | 必选 | 默认值 | 描述                                               |
-|----------|---------------|:----:|--------|--------------------------------------------------|
-| metadata | Edge.Metadata |  ✓   |        | [节点元数据](/zh/docs/api/model/edge#constructor)。 |
+| 名称     | 类型          | 必选 | 默认值 | 描述        |
+|----------|---------------|:----:|--------|-----------|
+| metadata | Edge.Metadata |  ✓   |        | 节点元数据。 |
 
 ### addEdge(...)
 
@@ -132,14 +118,12 @@ addEdge(edge:Edge, options?: AddOptions): Edge
 
 添加边到画布，返回添加的边。
 
-<span class="tag-param">参数<span>
-
-| 名称             | 类型                  | 必选 | 默认值  | 描述                                                                                |
-|------------------|-----------------------|:----:|---------|-----------------------------------------------------------------------------------|
-| edge             | Edge.Metadata \| Edge |  ✓   |         | [边元数据](/zh/docs/api/model/edge#constructor)或[边实例](/zh/docs/api/model/edge)。 |
-| options.silent   | boolean               |      | `false` | 为 `true` 时不触发 `'edge:added'` 和 `'cell:added'` 事件和画布重绘。                 |
-| options.sort     | boolean               |      | `true`  | 是否按照 `zIndex` 排序。                                                             |
-| options...others | object                |      |         | 其他自定义键值对，可以在事件回调中使用。                                              |
+| 名称             | 类型                  | 必选 | 默认值  | 描述                                                                |
+|------------------|-----------------------|:----:|---------|-------------------------------------------------------------------|
+| edge             | Edge.Metadata \| Edge |  ✓   |         | 边元数据或边实例。                                                   |
+| options.silent   | boolean               |      | `false` | 为 `true` 时不触发 `'edge:added'` 和 `'cell:added'` 事件和画布重绘。 |
+| options.sort     | boolean               |      | `true`  | 是否按照 `zIndex` 排序。                                             |
+| options...others | object                |      |         | 其他自定义键值对，可以在事件回调中使用。                              |
 
 ### addEdges(...)
 
@@ -149,14 +133,12 @@ addEdges(edges: (Edge.Metadata | Edge)[], options?: AddOptions): Graph
 
 添加多条边到画布，返回该画布。
 
-<span class="tag-param">参数<span>
-
-| 名称             | 类型                      | 必选 | 默认值  | 描述                                                                                    |
-|------------------|---------------------------|:----:|---------|---------------------------------------------------------------------------------------|
-| edges            | (Edge.Metadata \| Edge)[] |  ✓   |         | [边元数据](/en/docs/api/model/edge#constructor)或[边实例](/en/docs/api/model/edge)数组。 |
-| options.silent   | boolean                   |      | `false` | 为 `true` 时不触发 `'edge:added'` 和 `'cell:added'` 事件和画布重绘。                     |
-| options.sort     | boolean                   |      | `true`  | 是否按照 `zIndex` 排序。                                                                 |
-| options...others | object                    |      |         | 其他自定义键值对，可以在事件回调中使用。                                                  |
+| 名称             | 类型                      | 必选 | 默认值  | 描述                                                                |
+|------------------|---------------------------|:----:|---------|-------------------------------------------------------------------|
+| edges            | (Edge.Metadata \| Edge)[] |  ✓   |         | 边元数据或边实例数组。                                               |
+| options.silent   | boolean                   |      | `false` | 为 `true` 时不触发 `'edge:added'` 和 `'cell:added'` 事件和画布重绘。 |
+| options.sort     | boolean                   |      | `true`  | 是否按照 `zIndex` 排序。                                             |
+| options...others | object                    |      |         | 其他自定义键值对，可以在事件回调中使用。                              |
 
 ### removeEdge(...)
 
@@ -167,11 +149,9 @@ removeEdge(edge: Edge, options?: RemoveOptions): Edge | null
 
 删除边，返回删除的边。
 
-<span class="tag-param">参数<span>
-
 | 名称             | 类型           | 必选 | 默认值  | 描述                                                                    |
 |------------------|----------------|:----:|---------|-----------------------------------------------------------------------|
-| edge             | string \| Edge |  ✓   |         | 边 ID 或[边实例](/zh/docs/api/model/edge)。                              |
+| edge             | string \| Edge |  ✓   |         | 边 ID 或边实例。                                                         |
 | options.silent   | boolean        |      | `false` | 为 `true` 时不触发 `'edge:removed'` 和 `'cell:removed'` 事件和画布重绘。 |
 | options...others | object         |      |         | 其他自定义键值对，可以在事件回调中使用。                                  |
 
@@ -183,14 +163,12 @@ addCell(cell: Cell | Cell[], options?: AddOptions): this
 
 添加节点或边到画布。
 
-<span class="tag-param">参数<span>
-
-| 名称             | 类型           | 必选 | 默认值  | 描述                                                                                                     |
-|------------------|----------------|:----:|---------|--------------------------------------------------------------------------------------------------------|
-| cell             | Cell \| Cell[] |  ✓   |         | [节点实例](/zh/docs/api/model/node)或[边实例](/zh/docs/api/model/edge)，支持传入数组同时添加多个节点或边。 |
-| options.silent   | boolean        |      | `false` | 为 `true` 时不触发 `'cell:added'`、`'node:added'` 和 `'edge:added'` 事件和画布重绘。                       |
-| options.sort     | boolean        |      | `true`  | 是否按照 `zIndex` 排序。                                                                                  |
-| options...others | object         |      |         | 其他自定义键值对，可以在事件回调中使用。                                                                   |
+| 名称             | 类型           | 必选 | 默认值  | 描述                                                                               |
+|------------------|----------------|:----:|---------|----------------------------------------------------------------------------------|
+| cell             | Cell \| Cell[] |  ✓   |         | 节点实例或边实例，支持传入数组同时添加多个节点或边。                                 |
+| options.silent   | boolean        |      | `false` | 为 `true` 时不触发 `'cell:added'`、`'node:added'` 和 `'edge:added'` 事件和画布重绘。 |
+| options.sort     | boolean        |      | `true`  | 是否按照 `zIndex` 排序。                                                            |
+| options...others | object         |      |         | 其他自定义键值对，可以在事件回调中使用。                                             |
 
 ### removeCell(...)
 
@@ -200,8 +178,6 @@ removeCell(cell: Cell, options?: RemoveOptions): Cell | null
 ```
 
 删除节点或边，返回删除的节点或边。
-
-<span class="tag-param">参数<span>
 
 | 名称             | 类型           | 必选 | 默认值  | 描述                                                                                     |
 |------------------|----------------|:----:|---------|----------------------------------------------------------------------------------------|
@@ -217,8 +193,6 @@ removeCells(cells: (Cell | string)[], options?: RemoveOptions): Cell[]
 
 删除多个节点/边，返回删除的节点或边的数组。
 
-<span class="tag-param">参数<span>
-
 | 名称             | 类型               | 必选 | 默认值  | 描述                                                                                     |
 |------------------|--------------------|:----:|---------|----------------------------------------------------------------------------------------|
 | cell             | (string \| Cell)[] |  ✓   |         | 节点/边 ID 或节点/边数组。                                                                |
@@ -232,8 +206,6 @@ removeConnectedEdges(cell: Cell | string, options?: RemoveOptions): Edge[]
 ```
 
 删除连接到节点/边的边，返回被删除边的数组。
-
-<span class="tag-param">参数<span>
 
 | 名称             | 类型           | 必选 | 默认值  | 描述                                                                    |
 |------------------|----------------|:----:|---------|-----------------------------------------------------------------------|
@@ -249,8 +221,6 @@ disconnectConnectedEdges(cell: Cell | string, options?: Edge.SetOptions): this
 
 将链接到节点/边的边的起点和终点设置为原点 `{x: 0, y: 0}`，即断开连接。
 
-<span class="tag-param">参数<span>
-
 | 名称             | 类型           | 必选 | 默认值  | 描述                                                                                |
 |------------------|----------------|:----:|---------|-----------------------------------------------------------------------------------|
 | cell             | string \| Cell |  ✓   |         | 节点/边 ID 或节点/边。                                                               |
@@ -265,8 +235,6 @@ clearCells(options?: SetOptions): this
 
 清空画布。
 
-<span class="tag-param">参数<span>
-
 | 名称             | 类型    | 必选 | 默认值  | 描述                                                                                     |
 |------------------|---------|:----:|---------|----------------------------------------------------------------------------------------|
 | options.silent   | boolean |      | `false` | 为 `true` 时不触发 `'cell:removed'`、`'node:removed'` 和 `'edge:removed'` 事件和画布重绘。 |
@@ -279,8 +247,6 @@ resetCells(cells: Cell[], options?: SetOptions): this
 ```
 
 清空画布并添加用指定的节点/边。
-
-<span class="tag-param">参数<span>
 
 | 名称             | 类型    | 必选 | 默认值  | 描述                                                                                                                                  |
 |------------------|---------|:----:|---------|-------------------------------------------------------------------------------------------------------------------------------------|
@@ -297,8 +263,6 @@ hasCell(cell: Cell): boolean
 
 返回画布中是否包含指定的节点/边。
 
-<span class="tag-param">参数<span>
-
 | 名称 | 类型           | 必选 | 默认值 | 描述                  |
 |------|----------------|:----:|--------|---------------------|
 | cell | string \| Cell |  ✓   |        | 节点/边 ID 或节点/边。 |
@@ -311,8 +275,6 @@ getCellById(id: string)
 
 根据节点/边的 ID 获取节点/边。
 
-<span class="tag-param">参数<span>
-
 | 名称 | 类型   | 必选 | 默认值 | 描述          |
 |------|--------|:----:|--------|-------------|
 | id   | string |  ✓   |        | 节点/边的 ID。 |
@@ -324,8 +286,6 @@ updateCellId(cell: Cell, newId: string)
 ```
 
 更新节点或者边的 ID，会返回新创建的节点/边。
-
-<span class="tag-param">参数<span>
 
 | 名称  | 类型   | 必选 | 默认值 | 描述     |
 |-------|--------|:----:|--------|--------|
@@ -372,8 +332,6 @@ getOutgoingEdges(cell: Cell | string): Edge[] | null
 
 获取连接到节点/边的输出边，即边的起点为指定节点/边的边。
 
-<span class="tag-param">参数<span>
-
 | 名称 | 类型           | 必选 | 默认值 | 描述                  |
 |------|----------------|:----:|--------|---------------------|
 | cell | string \| Cell |  ✓   |        | 节点/边 ID 或节点/边。 |
@@ -385,8 +343,6 @@ getIncomingEdges(cell: Cell | string): Edge[] | null
 ```
 
 获取连接到节点/边的输入边，即边的终点为指定节点/边的边。
-
-<span class="tag-param">参数<span>
 
 | 名称 | 类型           | 必选 | 默认值 | 描述                  |
 |------|----------------|:----:|--------|---------------------|
@@ -400,8 +356,6 @@ getConnectedEdges(cell: Cell | string, options?: GetConnectedEdgesOptions): Edge
 
 获取与节点/边相连接的边。
 
-<span class="tag-param">参数<span>
-
 | 名称             | 类型           | 必选 | 默认值  | 描述                                                                                                                |
 |------------------|----------------|:----:|---------|-------------------------------------------------------------------------------------------------------------------|
 | cell             | string \| Cell |  ✓   |         | 节点/边 ID 或节点/边。                                                                                               |
@@ -411,29 +365,27 @@ getConnectedEdges(cell: Cell | string, options?: GetConnectedEdgesOptions): Edge
 | options.enclosed | boolean        |      | `false` | 是否包含子孙节点之间相连接的边。                                                                                     |
 | options.indirect | boolean        |      | `false` | 是否包含哪些间接连接的边，即连接到输入或输出边上的边。                                                                |
 
-<span class="tag-example">使用<span>
-
 ```ts
-const edges = graph.getConnectedEdges(node); // 返回输入和输出边
-const edges = graph.getConnectedEdges(node, { incoming: true, outgoing: true }); // 返回输入和输出边
+const edges = graph.getConnectedEdges(node) // 返回输入和输出边
+const edges = graph.getConnectedEdges(node, { incoming: true, outgoing: true }) // 返回输入和输出边
 
-const edges = graph.getConnectedEdges(node, { incoming: true }); // 返回输入边
+const edges = graph.getConnectedEdges(node, { incoming: true }) // 返回输入边
 const edges = graph.getConnectedEdges(node, {
   incoming: true,
   outgoing: false,
-}); // 返回输入边
+}) // 返回输入边
 
-const edges = graph.getConnectedEdges(node, { outgoing: true }); // 返回输出边
+const edges = graph.getConnectedEdges(node, { outgoing: true }) // 返回输出边
 const edges = graph.getConnectedEdges(node, {
   incoming: false,
   outgoing: true,
-}); // 返回输出边
+}) // 返回输出边
 
-const edges = graph.getConnectedEdges(node, { deep: true }); // 返回输入和输出边，包含链接到所有子孙节点/边的输入和输出边
-const edges = graph.getConnectedEdges(node, { deep: true, incoming: true }); // 返回输入边，包含链接到所有子孙节点/边的输入边
-const edges = graph.getConnectedEdges(node, { deep: true, enclosed: true }); // 返回输入和输出边，同时包含子孙节点/边之间相连的边
+const edges = graph.getConnectedEdges(node, { deep: true }) // 返回输入和输出边，包含链接到所有子孙节点/边的输入和输出边
+const edges = graph.getConnectedEdges(node, { deep: true, incoming: true }) // 返回输入边，包含链接到所有子孙节点/边的输入边
+const edges = graph.getConnectedEdges(node, { deep: true, enclosed: true }) // 返回输入和输出边，同时包含子孙节点/边之间相连的边
 
-const edges = graph.getConnectedEdges(node, { indirect: true }); // 返回输入和输出边，包含间接连接的边
+const edges = graph.getConnectedEdges(node, { indirect: true }) // 返回输入和输出边，包含间接连接的边
 ```
 
 ### getRootNodes()
@@ -451,8 +403,6 @@ isRootNode(cell: Cell | string): boolean
 ```
 
 返回指定的节点是否是根节点。
-
-<span class="tag-param">参数<span>
 
 | 名称 | 类型           | 必选 | 默认值 | 描述                  |
 |------|----------------|:----:|--------|---------------------|
@@ -474,8 +424,6 @@ isLeafNode(cell: Cell | string): boolean
 
 返回指定的节点是否是叶子节点
 
-<span class="tag-param">参数<span>
-
 | 名称 | 类型           | 必选 | 默认值 | 描述                  |
 |------|----------------|:----:|--------|---------------------|
 | cell | string \| Cell |  ✓   |        | 节点/边 ID 或节点/边。 |
@@ -487,8 +435,6 @@ getNeighbors(cell: Cell, options?: GetNeighborsOptions): Cell[]
 ```
 
 获取邻居节点。
-
-<span class="tag-param">参数<span>
 
 | 名称             | 类型    | 必选 | 默认值  | 描述                                                                                                                                  |
 |------------------|---------|:----:|---------|-------------------------------------------------------------------------------------------------------------------------------------|
@@ -513,8 +459,6 @@ getPredecessors(cell: Cell, options?: GetPredecessorsOptions): Cell[]
 ```
 
 返回节点的前序节点，即从根节点开始连接到指定节点的节点。
-
-<span class="tag-param">参数<span>
 
 | 名称                 | 类型                                                  | 必选 | 默认值  | 描述                                                                       |
 |----------------------|-------------------------------------------------------|:----:|---------|--------------------------------------------------------------------------|
@@ -562,8 +506,6 @@ getSubGraph(cells: Cell[], options？: GetSubgraphOptions): Cell[]
 ```
 
 返回指定节点和边构成的子图。通过遍历指定的 `cells` 数组，当遇到边时，同时包含边的起始和终止节点；当遇到节点时，如果与节点相连的边的两端的节点都在 `cells` 数组中，则同时包含该条边。
-
-<span class="tag-param">参数<span>
 
 | 名称         | 类型    | 必选 | 默认值  | 描述                       |
 |--------------|---------|:----:|---------|--------------------------|
@@ -648,8 +590,6 @@ searchCell(cell: Cell, iterator: SearchIterator, options?: SearchOptions): this
 
 从指定的节点/边开始进行遍历。
 
-<span class="tag-param">参数<span>
-
 | 名称                 | 类型                                  | 必选 | 默认值  | 描述                                                                                                                                  |
 |----------------------|---------------------------------------|:----:|---------|-------------------------------------------------------------------------------------------------------------------------------------|
 | cell                 | Cell                                  |  ✓   |         | 节点/边。                                                                                                                              |
@@ -671,8 +611,6 @@ getShortestPath(
 ```
 
 获取节点之间的最短路径，返回最短路径上的节点 ID。
-
-<span class="tag-param">参数<span>
 
 | 名称             | 类型                             | 必选 | 默认值        | 描述                                                           |
 |------------------|----------------------------------|:----:|---------------|--------------------------------------------------------------|
@@ -697,8 +635,6 @@ getCellsBBox(cells: Cell[], options?: Cell.GetCellsBBoxOptions): Rectangle | nul
 
 返回指定节点和边构成的矩形区域。
 
-<span class="tag-param">参数<span>
-
 | 名称         | 类型    | 必选 | 默认值  | 描述                      |
 |--------------|---------|:----:|---------|-------------------------|
 | cells        | Cell[]  |  ✓   |         | 节点和边数组。             |
@@ -711,8 +647,6 @@ toJSON(options?: ToJSONOptions): object
 ```
 
 导出图中的节点和边，返回一个具有 `{ cells: [] }` 结构的对象，其中 `cells` 数组按渲染顺序保存节点和边。
-
-<span class="tag-param">参数<span>
 
 | 名称         | 类型 | 必选 | 默认值  | 描述                                                                                              |
 |--------------|------|:----:|---------|-------------------------------------------------------------------------------------------------|

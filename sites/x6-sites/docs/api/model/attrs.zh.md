@@ -1,13 +1,11 @@
 ---
-title: Attrs
-order: 6
+title: 元素属性
+order: 5
 redirect_from:
   - /zh/docs
   - /zh/docs/api
   - /zh/docs/api/model
 ---
-
-在之前教程中我们介绍了[如何通过 `attrs` 定制样式](/zh/docs/tutorial/basic/cell#attrs-1)，同时在[使用箭头教程](/zh/docs/tutorial/basic/edge#使用箭头-marker)中看到了 `sourceMarker` 和 `targetMarker` 两个特殊属性的强大作用，并了解到 `attrs` 在[节点样式](/zh/docs/tutorial/basic/node#定制样式-attrs)、[边样式](/zh/docs/tutorial/basic/edge#定制样式-attrs)、[标签样式](/zh/docs/tutorial/intermediate/edge-labels#标签样式)等多处被广泛使用，所以有必要对属性相关概念作更详细的介绍。
 
 对于原生 SVG 属性，网上有很多教程可以参考，例如 MDN 提供的 [SVG 属性参考](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute)，这里我们将更多聚焦到如何定义和使用特殊属性。特殊属性提供了比[原生 SVG 属性](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute)更加灵活和强大的功能，在应用属性时，原生属性被直接传递给对应的元素，特殊属性则被进一步加工处理，转换为浏览器认识的原生属性后，再传递给对应的元素。
 
@@ -35,17 +33,17 @@ graph.addNode({
       refRx: '50%', // 椭圆 x 轴半径为宽度的一半
       refRy: '25%', // 椭圆 y 轴半径为高度的 1/4
       refCx: '50%', // 椭圆中心 x 坐标为宽度一半，即位于节点宽度的中心
-      refCy: 0,     // 椭圆中心 y 坐标为 0
+      refCy: 0, // 椭圆中心 y 坐标为 0
       refX: '-50%', // 向左偏移宽度一半
-      refY: '25%',  // 向下偏移高度的 1/4
+      refY: '25%', // 向下偏移高度的 1/4
     },
     r: {
-      refX: '100%',     // 矩形 x 轴坐标位于节点右下角
-      refY: '100%',     // 矩形 y 轴坐标位于节点右下角
-      refWidth: '50%',  // 矩形宽度为节点宽的一半
+      refX: '100%', // 矩形 x 轴坐标位于节点右下角
+      refY: '100%', // 矩形 y 轴坐标位于节点右下角
+      refWidth: '50%', // 矩形宽度为节点宽的一半
       refHeight: '50%', // 矩形高度为节点高度的一半
-      x: -10,           // 向左偏移 10px
-      y: -10,           // 向上偏移 10px
+      x: -10, // 向左偏移 10px
+      y: -10, // 向上偏移 10px
     },
     c: {
       refRCircumscribed: '50%', // 圆半径为节点宽度/高度中较大的那个值的一半
@@ -55,14 +53,13 @@ graph.addNode({
   },
 })
 ```
-
-<iframe src="/demos/tutorial/intermediate/attrs/ref-node"></iframe>
+<code id="attrs-ref-node" src="@/src/api/attrs/ref-node/index.tsx"></code>
 
 ## 相对子元素
 
 上面这些属性默认相对于节点的大小进行计算，另外我们可以通过 `ref` 属性来提供一个子元素选择器，这时所有的计算都相对于 `ref` 指代的元素，从而实现相对于子元素的大小和位置。
 
-:::warning{title=注意：}
+:::warning{title=注意}
 需要注意的是，设置 `ref` 后，所有计算都依赖子元素在浏览器中的 bbox 测量，所以性能会比相对于节点的方式要慢。
 :::
 
@@ -102,8 +99,7 @@ graph.addNode({
   },
 })
 ```
-
-<iframe src="/demos/tutorial/intermediate/attrs/ref-elem"></iframe>
+<code id="attrs-ref-elem" src="@/src/api/attrs/ref-elem/index.tsx"></code>
 
 ## 沿边长度的相对位置
 
@@ -132,7 +128,7 @@ graph.addEdge({
 })
 ```
 
-<iframe src="/demos/tutorial/intermediate/attrs/edge-relative-position"></iframe>
+<code id="attrs-edge-relative-position" src="@/src/api/attrs/edge-relative-position/index.tsx"></code>
 
 ```ts
 graph.addEdge({
@@ -156,7 +152,7 @@ graph.addEdge({
     absoluteLabelBody: {
       atConnectionLength: 150,
     },
-    
+
     absoluteReverseLabel: {
       text: '-100',
       atConnectionLength: -100,
@@ -164,7 +160,7 @@ graph.addEdge({
     absoluteReverseLabelBody: {
       atConnectionLength: -100,
     },
-    
+
     offsetLabelPositive: {
       y: 40,
       text: 'keepGradient: 0,40',
@@ -172,7 +168,7 @@ graph.addEdge({
     },
     offsetLabelPositiveBody: {
       x: -60, // 0 + -60
-      y: 30,  // 40 + -10
+      y: 30, // 40 + -10
       atConnectionRatio: 0.66,
     },
 
@@ -186,7 +182,7 @@ graph.addEdge({
       y: -50, // -40 + -10
       atConnectionRatio: 0.66,
     },
-    
+
     offsetLabelAbsolute: {
       x: -40,
       y: 80,
@@ -195,15 +191,15 @@ graph.addEdge({
     },
     offsetLabelAbsoluteBody: {
       x: -110, // -40 + -70
-      y: 70,   // 80 + -10
+      y: 70, // 80 + -10
       atConnectionRatioIgnoreGradient: 0.66,
     },
   },
 })
 ```
 
-<iframe src="/demos/tutorial/intermediate/attrs/edge-subelement-labels"></iframe>
+<code id="attrs-edge-subelement-labels" src="@/src/api/attrs/edge-subelement-labels/index.tsx"></code>
 
 ## 使用箭头
 
-我们可以使用 [`sourceMarker`](/zh/docs/api/registry/attr#sourcemarker) 和 [`targetMarker`](/zh/docs/api/registry/attr#targetmarker) 两个特殊属性来为边指定起始箭头和终止箭头，详情请参考[这篇教程](/zh/docs/tutorial/intermediate/marker)。
+我们可以使用 [`sourceMarker`](/zh/docs/api/registry/attr#sourcemarker) 和 [`targetMarker`](/zh/docs/api/registry/attr#targetmarker) 两个特殊属性来为边指定起始箭头和终止箭头，详情请参考[这篇教程](/zh/docs/api/model/marker)。

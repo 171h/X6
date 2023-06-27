@@ -17,42 +17,42 @@ graph.addEdge({
   source,
   target,
   tools: [
-    { name: "vertices" },
+    { name: 'vertices' },
     {
-      name: "button-remove",
+      name: 'button-remove',
       args: { distance: 20 },
     },
   ],
-});
+})
 
 // 创建边后添加小工具
 edge.addTools([
-  { name: "vertices" },
+  { name: 'vertices' },
   {
-    name: "button-remove",
+    name: 'button-remove',
     args: { distance: 20 },
   },
-]);
+])
 ```
 
 场景二：鼠标动态添加/删除小工具。
 
 ```ts
-graph.on("edge:mouseenter", ({ cell }) => {
+graph.on('edge:mouseenter', ({ cell }) => {
   cell.addTools([
-    { name: "vertices" },
+    { name: 'vertices' },
     {
-      name: "button-remove",
+      name: 'button-remove',
       args: { distance: 20 },
     },
-  ]);
-});
+  ])
+})
 
-graph.on("edge:mouseleave", ({ cell }) => {
-  if (cell.hasTool("button-remove")) {
-    cell.removeTool("button-remove");
+graph.on('edge:mouseleave', ({ cell }) => {
+  if (cell.hasTool('button-remove')) {
+    cell.removeTool('button-remove')
   }
-});
+})
 ```
 
 在 X6 中默认提供了以下几个用于边的小工具：
@@ -70,7 +70,6 @@ graph.on("edge:mouseleave", ({ cell }) => {
 ### vertices
 
 路径点工具，在路径点位置渲染一个小圆点，拖动小圆点修改路径点位置，双击小圆点删除路径点，在边上单击添加路径点。配置如下：
-
 
 | 参数名             | 类型     | 默认值   | 说明                                                                                                                   |
 |--------------------|----------|----------|----------------------------------------------------------------------------------------------------------------------|
@@ -164,7 +163,6 @@ graph.addEdge({
 
 根据边的包围盒渲染一个包围边的矩形。注意，该工具仅仅渲染一个矩形，不带任何交互。配置如下：
 
-
 | 参数名          | 类型     | 默认值   | 说明                                                                                                     |
 |-----------------|----------|----------|--------------------------------------------------------------------------------------------------------|
 | tagName         | string   | `rect`   | 使用何种图形渲染。                                                                                        |
@@ -212,13 +210,13 @@ graph.addEdge({
 
 在指定位置处渲染一个按钮，支持自定义按钮的点击交互。配置如下：
 
-| 参数名   | 类型                                                                 | 默认值      | 说明                          |
-|----------|----------------------------------------------------------------------|-------------|-----------------------------|
-| distance | number \| string                                                     | `undefined` | 偏离起点的距离或比例。         |
-| offset   | number \| Point.PointLike                                            | `0`         | 在 `distance` 基础上的偏移量。 |
-| rotate   | boolean                                                              | `undefined` | 是否跟随边旋转。               |
-| markup   | Markup.JSONMarkup                                                    | `undefined` | 渲染按钮的 Markup 定义。       |
-| onClick  | (args: {e: Dom.MouseDownEvent, cell: Cell, view: CellView }) => void | `undefined` | 点击按钮的回调函数。           |
+| 参数名   | 类型                                                                   | 默认值      | 说明                          |
+|----------|------------------------------------------------------------------------|-------------|-----------------------------|
+| distance | number \| string                                                       | `undefined` | 偏离起点的距离或比例。         |
+| offset   | number \| Point.PointLike                                              | `0`         | 在 `distance` 基础上的偏移量。 |
+| rotate   | boolean                                                                | `undefined` | 是否跟随边旋转。               |
+| markup   | Markup.JSONMarkup                                                      | `undefined` | 渲染按钮的 Markup 定义。       |
+| onClick  | `(args: {e: Dom.MouseDownEvent, cell: Cell, view: CellView }) => void` | `undefined` | 点击按钮的回调函数。           |
 
 使用方式如下：
 
@@ -263,7 +261,6 @@ graph.addEdge({
 
 在边的起点或终点渲染一个图形(默认是箭头)，拖动该图形来修改边的起点或终点。配置如下：
 
-
 | 参数名  | 类型             | 默认值   | 说明                |
 |---------|------------------|----------|-------------------|
 | tagName | string           | `path`   | 使用何种图形来渲染。 |
@@ -296,23 +293,23 @@ graph.addEdge({
 工具使用方式如下：
 
 ```ts
-graph.on("edge:mouseenter", ({ cell }) => {
+graph.on('edge:mouseenter', ({ cell }) => {
   cell.addTools([
-    "source-arrowhead",
+    'source-arrowhead',
     {
-      name: "target-arrowhead",
+      name: 'target-arrowhead',
       args: {
         attrs: {
-          fill: "red",
+          fill: 'red',
         },
       },
     },
-  ]);
-});
+  ])
+})
 
-graph.on("edge:mouseleave", ({ cell }) => {
-  cell.removeTools();
-});
+graph.on('edge:mouseleave', ({ cell }) => {
+  cell.removeTools()
+})
 ```
 
 <code id="api-edge-tool-arrowhead" src="@/src/api/edge-tool/arrowhead/index.tsx"></code>
@@ -321,48 +318,47 @@ graph.on("edge:mouseleave", ({ cell }) => {
 
 提供边上文本编辑功能。配置如下：
 
+| 参数名                | 类型                                                                    | 默认值                         | 说明                                                           |
+|-----------------------|-------------------------------------------------------------------------|--------------------------------|--------------------------------------------------------------|
+| labelAddable          | boolean                                                                 | true                           | 点击非文本位置是否新建 label                                   |
+| attrs/fontSize        | string                                                                  | `14`                           | 编辑文本字体大小                                               |
+| attrs/color           | string                                                                  | `#000`                         | 编辑文本字体颜色                                               |
+| attrs/fontFamily      | string                                                                  | `Arial, helvetica, sans-serif` | 编辑文本的字体                                                 |
+| attrs/backgroundColor | string                                                                  | `#fff`                         | 编辑区域的背景色                                               |
+| getText               | string \| `(this: CellView, args: {cell: Cell}) => string`              | -                              | 获取原文本方法，在自定义 `markup` 场景需要自定义 `getText` 方法 |
+| setText               | string \| `(this: CellView, args: {cell: Cell, value: string}) => void` | -                              | 设置新文本，在自定义 `markup` 场景需要自定义 `setText` 方法     |
 
-| 参数名                | 类型                                                                  | 默认值                         | 说明                                                           |
-|-----------------------|-----------------------------------------------------------------------|--------------------------------|--------------------------------------------------------------|
-| labelAddable          | boolean                                                               | true                           | 点击非文本位置是否新建 label                                   |
-| attrs/fontSize        | string                                                                | `14`                           | 编辑文本字体大小                                               |
-| attrs/color           | string                                                                | `#000`                         | 编辑文本字体颜色                                               |
-| attrs/fontFamily      | string                                                                | `Arial, helvetica, sans-serif` | 编辑文本的字体                                                 |
-| attrs/backgroundColor | string                                                                | `#fff`                         | 编辑区域的背景色                                               |
-| getText               | string \| (this: CellView, args: {cell: Cell}) => string              | -                              | 获取原文本方法，在自定义 `markup` 场景需要自定义 `getText` 方法 |
-| setText               | string \| (this: CellView, args: {cell: Cell, value: string}) => void | -                              | 设置新文本，在自定义 `markup` 场景需要自定义 `setText` 方法     |
-
-:::warning{title=注意：}
+:::warning{title=注意}
 需要注意的是，2.8.0 版本后不需要在双击事件中去动态添加工具，也就不需要传入事件参数。
 :::
 
 ```ts
 // 2.8.0 版本之前使用方式
-graph.on("node:dblclick", ({ node, e }) => {
+graph.on('node:dblclick', ({ node, e }) => {
   edge.addTools({
-    name: "edge-editor",
+    name: 'edge-editor',
     args: {
       event: e,
     },
-  });
-});
+  })
+})
 
 // 2.8.0 版本之后使用方式
 edge.addTools({
-  name: "edge-editor"
-});
+  name: 'edge-editor',
+})
 ```
 
 还需要注意的是，如果在边中自定义了 `markup`，往往需要自定义 `getText` 和 `setText` 方法来正确获取和设置编辑文本，这两个配置都支持函数和字符串两种形式，函数比较好理解，字符串其实就是要获取或者设置的文本的属性路径，一般情况下建议使用字符串形式，这样图数据可以完全序列化(因为函数无法序列化)，否则可能会出现渲染画布后文本编辑功能异常，比如：
 
 ```typescript
 edge.addTools({
-  name: "edge-editor",
+  name: 'edge-editor',
   args: {
     getText: 'a/b',
-    setText: 'c/d'
-  }
-});
+    setText: 'c/d',
+  },
+})
 ```
 
 上面配置表示：
@@ -379,7 +375,7 @@ edge.addTools({
 继承 `ToolItem` 实现一个工具类，难度较高，要求对 [ToolItem](https://github.com/antvis/X6/blob/master/packages/x6/src/view/tool.ts) 类都有所了解，可以参考上述内置工具的源码，这里不展开叙述。
 
 ```ts
-Graph.registerEdgeTool("button", Button);
+Graph.registerEdgeTool('button', Button)
 ```
 
 ### 方式二
@@ -387,26 +383,26 @@ Graph.registerEdgeTool("button", Button);
 继承已经注册的工具，在继承基础上修改配置。我们在 `ToolItem` 基类上提供了一个静态方法 `define` 来快速实现继承并修改配置。
 
 ```ts
-import { Vertices } from "@antv/x6/es/registry/tool/vertices";
+import { Vertices } from '@antv/x6/es/registry/tool/vertices'
 
 const RedVertices = Vertices.define<Vertices.Options>({
   attrs: {
-    fill: "red",
+    fill: 'red',
   },
-});
+})
 
-Graph.registerEdgeTool("red-vertices", RedVertices, true);
+Graph.registerEdgeTool('red-vertices', RedVertices, true)
 ```
 
 <code id="api-edge-tool-custom-vertices" src="@/src/api/edge-tool/custom-vertices/index.tsx"></code>
-
 
 同时，我们为 `Graph.registerEdgeTool` 方法提供了一种快速继承并指定默认选项的实现：
 
 ```ts
 Graph.registerEdgeTool('red-vertices', {
-  inherit:'vertices', // 基类名称，使用已经注册的工具名称。
-  attrs: {            // 其他选项，作为继承的类的默认选项。
+  inherit: 'vertices', // 基类名称，使用已经注册的工具名称。
+  attrs: {
+    // 其他选项，作为继承的类的默认选项。
     fill: 'red',
   },
 })
@@ -415,18 +411,18 @@ Graph.registerEdgeTool('red-vertices', {
 通过该方法，我们可以快速定义并注册一个圆形的端点 `circle-target-arrowhead`：
 
 ```ts
-Graph.registerEdgeTool("circle-target-arrowhead", {
-  inherit: "target-arrowhead",
-  tagName: "circle",
+Graph.registerEdgeTool('circle-target-arrowhead', {
+  inherit: 'target-arrowhead',
+  tagName: 'circle',
   attrs: {
     r: 18,
-    fill: "#31d0c6",
-    "fill-opacity": 0.3,
-    stroke: "#fe854f",
-    "stroke-width": 4,
-    cursor: "move",
+    fill: '#31d0c6',
+    'fill-opacity': 0.3,
+    stroke: '#fe854f',
+    'stroke-width': 4,
+    cursor: 'move',
   },
-});
+})
 ```
 
 <code id="api-edge-tool-custom-arrowhead" src="@/src/api/edge-tool/custom-arrowhead/index.tsx"></code>

@@ -223,18 +223,18 @@ export default defineConfig({
         order: 2,
       },
       {
-        slug: 'api/interacting',
+        slug: 'api/mvc',
         title: {
-          zh: '交互',
-          en: 'Interacting',
+          zh: 'MVC',
+          en: 'MVC',
         },
         order: 3,
       },
       {
         slug: 'api/registry',
         title: {
-          zh: '注册',
-          en: 'Registry',
+          zh: '扩展',
+          en: 'Extension',
         },
         order: 4,
       },
